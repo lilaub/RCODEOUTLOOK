@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dating Apps Perceptual Mapping - Factor Analysis Workshop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo">
+                <span class="logo-icon">💕</span>
+                <h1>Perceptual Mapping Workshop</h1>
+            </div>
+            <div class="header-info">
+                <span class="case-badge">Dating Apps Market Analysis</span>
+            </div>
+        </header>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-steps">
+                <div class="progress-step active" data-step="1">
+                    <span class="step-number">1</span>
+                    <span class="step-label">Apps & Attributes</span>
+                </div>
+                <div class="progress-step" data-step="2">
+                    <span class="step-number">2</span>
+                    <span class="step-label">Rating Matrix</span>
+                </div>
+                <div class="progress-step" data-step="3">
+                    <span class="step-number">3</span>
+                    <span class="step-label">Factor Analysis</span>
+                </div>
+                <div class="progress-step" data-step="4">
+                    <span class="step-number">4</span>
+                    <span class="step-label">Perceptual Map</span>
+                </div>
+                <div class="progress-step" data-step="5">
+                    <span class="step-number">5</span>
+                    <span class="step-label">Insights</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Step 1: Data Collection -->
+            <section id="step1" class="content-section active">
+                <div class="section-header">
+                    <h2>Step 1: List Apps & Attributes</h2>
+                    <p class="section-subtitle">Enter the dating apps you know and the attributes you use to evaluate them</p>
+                </div>
+
+                <div class="two-column-layout">
+                    <!-- Dating Apps Column -->
+                    <div class="input-panel">
+                        <div class="panel-header">
+                            <h3>📱 Dating Apps</h3>
+                            <span class="count-badge" id="appCount">0 apps</span>
+                        </div>
+                        <p class="helper-text">Enter dating apps you're aware of (aim for 8-12)</p>
+
+                        <div class="input-with-button">
+                            <input type="text" id="appInput" placeholder="Type app name and press Enter...">
+                            <button class="btn btn-primary btn-sm" onclick="addApp()">Add</button>
+                        </div>
+
+                        <div class="quick-add">
+                            <span class="quick-add-label">Quick add:</span>
+                            <div class="quick-add-buttons" id="suggestedApps">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+
+                        <div class="items-list" id="appsList">
+                            <!-- Apps will appear here -->
+                        </div>
+                    </div>
+
+                    <!-- Attributes Column -->
+                    <div class="input-panel">
+                        <div class="panel-header">
+                            <h3>📊 Evaluation Attributes</h3>
+                            <span class="count-badge" id="attrCount">0 attributes</span>
+                        </div>
+                        <p class="helper-text">What criteria do people use to evaluate dating apps? (aim for 10-15)</p>
+
+                        <div class="input-with-button">
+                            <input type="text" id="attrInput" placeholder="Type attribute and press Enter...">
+                            <button class="btn btn-primary btn-sm" onclick="addAttribute()">Add</button>
+                        </div>
+
+                        <div class="quick-add">
+                            <span class="quick-add-label">Quick add:</span>
+                            <div class="quick-add-buttons" id="suggestedAttrs">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+
+                        <div class="items-list" id="attrsList">
+                            <!-- Attributes will appear here -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-actions">
+                    <div class="validation-message" id="step1Validation"></div>
+                    <button class="btn btn-primary btn-large" onclick="goToStep(2)" id="step1Next">
+                        Continue to Rating Matrix →
+                    </button>
+                </div>
+            </section>
+
+            <!-- Step 2: Rating Matrix -->
+            <section id="step2" class="content-section">
+                <div class="section-header">
+                    <h2>Step 2: Rate Each App</h2>
+                    <p class="section-subtitle">Rate each dating app on each attribute (1 = Low, 7 = High)</p>
+                </div>
+
+                <div class="rating-instructions">
+                    <div class="scale-legend">
+                        <span class="scale-item"><strong>1</strong> = Very Low</span>
+                        <span class="scale-item"><strong>4</strong> = Neutral</span>
+                        <span class="scale-item"><strong>7</strong> = Very High</span>
+                        <span class="scale-item"><strong>?</strong> = Don't Know</span>
+                    </div>
+                </div>
+
+                <div class="matrix-container">
+                    <div class="matrix-wrapper">
+                        <table class="rating-matrix" id="ratingMatrix">
+                            <!-- Generated by JS -->
+                        </table>
+                    </div>
+                </div>
+
+                <div class="rating-stats">
+                    <div class="stat-card">
+                        <span class="stat-value" id="ratingsCompleted">0</span>
+                        <span class="stat-label">Ratings Completed</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value" id="ratingsTotal">0</span>
+                        <span class="stat-label">Total Possible</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value" id="ratingsPercent">0%</span>
+                        <span class="stat-label">Completion</span>
+                    </div>
+                </div>
+
+                <div class="section-actions">
+                    <button class="btn btn-secondary" onclick="goToStep(1)">← Back</button>
+                    <button class="btn btn-primary btn-large" onclick="goToStep(3)">
+                        Run Factor Analysis →
+                    </button>
+                </div>
+            </section>
+
+            <!-- Step 3: Factor Analysis -->
+            <section id="step3" class="content-section">
+                <div class="section-header">
+                    <h2>Step 3: Factor Analysis Results</h2>
+                    <p class="section-subtitle">Discover the underlying dimensions that explain your ratings</p>
+                </div>
+
+                <div class="analysis-container">
+                    <div class="analysis-controls">
+                        <button class="btn btn-primary btn-large" onclick="runFactorAnalysis()" id="runAnalysisBtn">
+                            🔬 Run Factor Analysis
+                        </button>
+                        <div class="analysis-options">
+                            <label>
+                                <input type="checkbox" id="useVarimax" checked>
+                                Apply Varimax Rotation
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="analysis-results" id="analysisResults" style="display: none;">
+                        <!-- Variance Explained -->
+                        <div class="result-card">
+                            <h3>Variance Explained</h3>
+                            <div class="variance-chart" id="varianceChart">
+                                <!-- Generated by JS -->
+                            </div>
+                            <p class="result-note">
+                                <strong>First 2 factors explain: <span id="totalVariance">0%</span></strong>
+                                <br><small>A good map typically captures >50% of variance</small>
+                            </p>
+                        </div>
+
+                        <!-- Factor Loadings -->
+                        <div class="result-card full-width">
+                            <h3>Factor Loadings</h3>
+                            <p class="helper-text">High positive loadings (green) and high negative loadings (red) indicate which attributes define each factor</p>
+                            <div class="loadings-table-container">
+                                <table class="loadings-table" id="loadingsTable">
+                                    <!-- Generated by JS -->
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Factor Interpretation -->
+                        <div class="result-card full-width">
+                            <h3>Name Your Factors</h3>
+                            <p class="helper-text">Based on the loadings above, give each factor a descriptive name</p>
+                            <div class="factor-naming">
+                                <div class="factor-name-input">
+                                    <label>Factor 1 (X-Axis):</label>
+                                    <div class="axis-labels-row">
+                                        <input type="text" id="factor1Low" placeholder="Low end (e.g., Casual)">
+                                        <span class="arrow">→</span>
+                                        <input type="text" id="factor1High" placeholder="High end (e.g., Serious)">
+                                    </div>
+                                    <div class="top-loadings" id="factor1TopLoadings"></div>
+                                </div>
+                                <div class="factor-name-input">
+                                    <label>Factor 2 (Y-Axis):</label>
+                                    <div class="axis-labels-row">
+                                        <input type="text" id="factor2Low" placeholder="Low end (e.g., Mainstream)">
+                                        <span class="arrow">→</span>
+                                        <input type="text" id="factor2High" placeholder="High end (e.g., Exclusive)">
+                                    </div>
+                                    <div class="top-loadings" id="factor2TopLoadings"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-actions">
+                    <button class="btn btn-secondary" onclick="goToStep(2)">← Back</button>
+                    <button class="btn btn-primary btn-large" onclick="goToStep(4)" id="step3Next" disabled>
+                        View Perceptual Map →
+                    </button>
+                </div>
+            </section>
+
+            <!-- Step 4: Perceptual Map -->
+            <section id="step4" class="content-section">
+                <div class="section-header">
+                    <h2>Step 4: Interactive Perceptual Map</h2>
+                    <p class="section-subtitle">Explore how dating apps are positioned based on factor scores</p>
+                </div>
+
+                <div class="map-container">
+                    <div class="map-controls">
+                        <div class="control-group">
+                            <label>Show Labels:</label>
+                            <label class="toggle">
+                                <input type="checkbox" id="showLabels" checked onchange="updateMap()">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="control-group">
+                            <label>Point Size:</label>
+                            <input type="range" id="pointSize" min="20" max="60" value="40" onchange="updateMap()">
+                        </div>
+                        <button class="btn btn-sm btn-outline" onclick="resetMapView()">Reset View</button>
+                    </div>
+
+                    <div class="perceptual-map-wrapper">
+                        <div class="axis-label-top" id="yAxisTop">Factor 2 High</div>
+                        <div class="axis-label-bottom" id="yAxisBottom">Factor 2 Low</div>
+                        <div class="axis-label-left" id="xAxisLeft">Factor 1 Low</div>
+                        <div class="axis-label-right" id="xAxisRight">Factor 1 High</div>
+
+                        <div class="perceptual-map" id="perceptualMap">
+                            <svg id="mapSvg" width="100%" height="100%">
+                                <!-- Grid lines -->
+                                <line class="axis-line" x1="50%" y1="0" x2="50%" y2="100%"></line>
+                                <line class="axis-line" x1="0" y1="50%" x2="100%" y2="50%"></line>
+                                <!-- Quadrant labels -->
+                                <text class="quadrant-label" x="25%" y="25%">Q2</text>
+                                <text class="quadrant-label" x="75%" y="25%">Q1</text>
+                                <text class="quadrant-label" x="25%" y="75%">Q3</text>
+                                <text class="quadrant-label" x="75%" y="75%">Q4</text>
+                                <!-- Apps will be added here -->
+                                <g id="appsGroup"></g>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="map-legend" id="mapLegend">
+                        <!-- Generated by JS -->
+                    </div>
+                </div>
+
+                <div class="app-details-panel" id="appDetailsPanel" style="display: none;">
+                    <h4 id="selectedAppName">App Name</h4>
+                    <div class="app-scores">
+                        <div class="score-item">
+                            <span class="score-label">Factor 1 Score:</span>
+                            <span class="score-value" id="selectedAppF1">0.00</span>
+                        </div>
+                        <div class="score-item">
+                            <span class="score-label">Factor 2 Score:</span>
+                            <span class="score-value" id="selectedAppF2">0.00</span>
+                        </div>
+                    </div>
+                    <h5>Attribute Ratings:</h5>
+                    <div class="app-ratings" id="selectedAppRatings"></div>
+                </div>
+
+                <div class="section-actions">
+                    <button class="btn btn-secondary" onclick="goToStep(3)">← Back</button>
+                    <button class="btn btn-primary btn-large" onclick="goToStep(5)">
+                        Strategic Analysis →
+                    </button>
+                </div>
+            </section>
+
+            <!-- Step 5: Insights & Export -->
+            <section id="step5" class="content-section">
+                <div class="section-header">
+                    <h2>Step 5: Strategic Insights</h2>
+                    <p class="section-subtitle">Analyze the competitive landscape and identify opportunities</p>
+                </div>
+
+                <div class="insights-container">
+                    <!-- Auto-generated Insights -->
+                    <div class="insight-card">
+                        <h3>📊 Map Summary</h3>
+                        <div id="mapSummary">
+                            <!-- Generated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Analysis Questions -->
+                    <div class="insight-card">
+                        <h3>🔍 Competitive Analysis</h3>
+                        <div class="analysis-questions">
+                            <div class="question-group">
+                                <label>Which apps occupy similar positions (clusters)? Why might they be perceived similarly?</label>
+                                <textarea id="clusterAnalysis" rows="3" placeholder="Describe the clusters you observe..."></textarea>
+                            </div>
+                            <div class="question-group">
+                                <label>Which apps have unique/differentiated positions? What makes them stand out?</label>
+                                <textarea id="differentiationAnalysis" rows="3" placeholder="Identify the outliers and explain..."></textarea>
+                            </div>
+                            <div class="question-group">
+                                <label>Are there "white spaces" (gaps) on the map? Describe a hypothetical app that could fill this gap.</label>
+                                <textarea id="whiteSpaceAnalysis" rows="3" placeholder="Describe the opportunity..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Strategic Recommendations -->
+                    <div class="insight-card">
+                        <h3>💡 Strategic Recommendation</h3>
+                        <div class="recommendation-builder">
+                            <div class="question-group">
+                                <label>If you were launching a new dating app, what position would you target?</label>
+                                <textarea id="targetPosition" rows="2" placeholder="Describe your target position..."></textarea>
+                            </div>
+                            <div class="question-group">
+                                <label>What features and messaging would support this positioning?</label>
+                                <textarea id="positioningSupport" rows="3" placeholder="Describe the features, design, and marketing..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Methodology Reflection -->
+                    <div class="insight-card">
+                        <h3>🎓 Methodology Reflection</h3>
+                        <div class="question-group">
+                            <label>What are the limitations of this analysis based on your individual perceptions?</label>
+                            <textarea id="methodologyReflection" rows="3" placeholder="Consider sample size, subjectivity, attribute selection..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Export Options -->
+                <div class="export-section">
+                    <h3>Export Your Work</h3>
+                    <div class="export-buttons">
+                        <button class="btn btn-large btn-secondary" onclick="exportData()">
+                            💾 Download Data (JSON)
+                        </button>
+                        <button class="btn btn-large btn-primary" onclick="exportReport()">
+                            📄 Generate Report
+                        </button>
+                        <button class="btn btn-large btn-outline" onclick="window.print()">
+                            🖨️ Print
+                        </button>
+                    </div>
+                </div>
+
+                <div class="section-actions">
+                    <button class="btn btn-secondary" onclick="goToStep(4)">← Back to Map</button>
+                    <button class="btn btn-success btn-large" onclick="submitExercise()">
+                        ✓ Submit Exercise
+                    </button>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Perceptual Mapping Workshop | Marketing Research Methods</p>
+            <p class="footer-note">Progress is automatically saved in your browser</p>
+        </footer>
+
+        <!-- Tooltip -->
+        <div class="tooltip" id="tooltip"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
