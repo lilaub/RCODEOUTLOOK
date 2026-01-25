@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Positioning Workshop - EnergyBoost</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo">
+                <span class="logo-icon">⚡</span>
+                <h1>Product Positioning Workshop</h1>
+            </div>
+            <div class="header-info">
+                <span class="case-badge">Case: EnergyBoost Launch</span>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <button class="nav-btn active" data-section="intro">
+                <span class="nav-icon">1</span>
+                Introduction
+            </button>
+            <button class="nav-btn" data-section="perceptual-map">
+                <span class="nav-icon">2</span>
+                Perceptual Map
+            </button>
+            <button class="nav-btn" data-section="segments">
+                <span class="nav-icon">3</span>
+                Target Segments
+            </button>
+            <button class="nav-btn" data-section="positioning">
+                <span class="nav-icon">4</span>
+                Positioning Statement
+            </button>
+            <button class="nav-btn" data-section="summary">
+                <span class="nav-icon">5</span>
+                Summary & Export
+            </button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Section 1: Introduction -->
+            <section id="intro" class="content-section active">
+                <div class="section-header">
+                    <h2>Welcome to the Positioning Workshop</h2>
+                    <p class="section-subtitle">Develop a winning positioning strategy for EnergyBoost</p>
+                </div>
+
+                <div class="intro-grid">
+                    <div class="intro-card">
+                        <div class="card-icon">🎯</div>
+                        <h3>Your Mission</h3>
+                        <p>VitalWave Beverages is launching a new energy drink called EnergyBoost. Your task is to develop a positioning strategy that differentiates it in a crowded market.</p>
+                    </div>
+
+                    <div class="intro-card">
+                        <div class="card-icon">📊</div>
+                        <h3>Market Context</h3>
+                        <p>The energy drink market is worth $86B globally, growing at 7% annually. Major players include Red Bull, Monster, Celsius, and emerging health-focused brands.</p>
+                    </div>
+
+                    <div class="intro-card">
+                        <div class="card-icon">🔧</div>
+                        <h3>This Tool Will Help You</h3>
+                        <ul>
+                            <li>Map competitor positions visually</li>
+                            <li>Evaluate target segments systematically</li>
+                            <li>Craft a professional positioning statement</li>
+                            <li>Export your strategy for presentation</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="student-info-form">
+                    <h3>Before You Begin</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="studentName">Your Name / Team Name</label>
+                            <input type="text" id="studentName" placeholder="Enter name...">
+                        </div>
+                        <div class="form-group">
+                            <label for="studentId">Student ID (optional)</label>
+                            <input type="text" id="studentId" placeholder="Enter ID...">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-actions">
+                    <button class="btn btn-primary btn-large" onclick="navigateTo('perceptual-map')">
+                        Begin Exercise →
+                    </button>
+                </div>
+            </section>
+
+            <!-- Section 2: Perceptual Map -->
+            <section id="perceptual-map" class="content-section">
+                <div class="section-header">
+                    <h2>Perceptual Mapping</h2>
+                    <p class="section-subtitle">Position competitors on a two-dimensional map to identify opportunities</p>
+                </div>
+
+                <div class="map-controls">
+                    <div class="axis-selector">
+                        <div class="form-group">
+                            <label for="xAxis">X-Axis (Horizontal)</label>
+                            <select id="xAxis" onchange="updateAxisLabels()">
+                                <option value="price">Price: Low → High</option>
+                                <option value="health">Health Focus: Low → High</option>
+                                <option value="innovation">Traditional → Innovative</option>
+                                <option value="performance">Lifestyle → Performance</option>
+                                <option value="appeal">Niche → Mainstream</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="yAxis">Y-Axis (Vertical)</label>
+                            <select id="yAxis" onchange="updateAxisLabels()">
+                                <option value="health">Health Focus: Low → High</option>
+                                <option value="price">Price: Low → High</option>
+                                <option value="innovation">Traditional → Innovative</option>
+                                <option value="performance">Lifestyle → Performance</option>
+                                <option value="appeal">Niche → Mainstream</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="perceptual-map-container">
+                    <div class="brand-palette">
+                        <h4>Drag Brands to Map</h4>
+                        <div class="brand-list" id="brandPalette">
+                            <!-- Brands will be populated by JS -->
+                        </div>
+                        <div class="palette-divider"></div>
+                        <h4>Your Product</h4>
+                        <div class="brand-item energyboost" draggable="true" data-brand="EnergyBoost">
+                            <span class="brand-dot" style="background: #10b981;"></span>
+                            EnergyBoost
+                        </div>
+                    </div>
+
+                    <div class="map-wrapper">
+                        <div class="axis-label axis-label-top" id="yAxisLabelTop">High Health Focus</div>
+                        <div class="axis-label axis-label-bottom" id="yAxisLabelBottom">Low Health Focus</div>
+                        <div class="axis-label axis-label-left" id="xAxisLabelLeft">Low Price</div>
+                        <div class="axis-label axis-label-right" id="xAxisLabelRight">High Price</div>
+
+                        <div class="perceptual-map" id="perceptualMap">
+                            <div class="map-quadrant q1">
+                                <span class="quadrant-label">Premium & Healthy</span>
+                            </div>
+                            <div class="map-quadrant q2">
+                                <span class="quadrant-label">Value & Healthy</span>
+                            </div>
+                            <div class="map-quadrant q3">
+                                <span class="quadrant-label">Value & Traditional</span>
+                            </div>
+                            <div class="map-quadrant q4">
+                                <span class="quadrant-label">Premium & Traditional</span>
+                            </div>
+                            <div class="map-axis map-axis-x"></div>
+                            <div class="map-axis map-axis-y"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gap-analysis">
+                    <h3>Gap Analysis</h3>
+                    <div class="analysis-questions">
+                        <div class="form-group">
+                            <label for="crowdedArea">Which area of the map has the most competition?</label>
+                            <textarea id="crowdedArea" rows="2" placeholder="Describe the most crowded area..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="whiteSpace">Where do you see potential "white space" (underserved areas)?</label>
+                            <textarea id="whiteSpace" rows="2" placeholder="Identify gaps in the market..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="opportunityRationale">Which gap represents the best opportunity for EnergyBoost? Why?</label>
+                            <textarea id="opportunityRationale" rows="3" placeholder="Explain your strategic recommendation..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-actions">
+                    <button class="btn btn-secondary" onclick="navigateTo('intro')">← Back</button>
+                    <button class="btn btn-primary" onclick="navigateTo('segments')">Continue to Segments →</button>
+                </div>
+            </section>
+
+            <!-- Section 3: Target Segments -->
+            <section id="segments" class="content-section">
+                <div class="section-header">
+                    <h2>Target Segment Evaluation</h2>
+                    <p class="section-subtitle">Evaluate potential customer segments and select your target</p>
+                </div>
+
+                <div class="segments-container">
+                    <div class="segment-cards" id="segmentCards">
+                        <!-- Segments will be populated by JS -->
+                    </div>
+
+                    <div class="segment-evaluation">
+                        <h3>Segment Comparison Matrix</h3>
+                        <div class="evaluation-matrix" id="evaluationMatrix">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Segment</th>
+                                        <th>Attractiveness<br><small>(1-5)</small></th>
+                                        <th>Fit<br><small>(1-5)</small></th>
+                                        <th>Accessibility<br><small>(1-5)</small></th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="evaluationTableBody">
+                                    <!-- Will be populated by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="segment-selection">
+                        <h3>Your Target Selection</h3>
+                        <div class="selection-row">
+                            <div class="form-group">
+                                <label for="primarySegment">Primary Target Segment</label>
+                                <select id="primarySegment" onchange="updateSegmentSelection()">
+                                    <option value="">Select primary segment...</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="secondarySegment">Secondary Target Segment (optional)</label>
+                                <select id="secondarySegment">
+                                    <option value="">Select secondary segment...</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="segmentJustification">Justify your target selection</label>
+                            <textarea id="segmentJustification" rows="4" placeholder="Explain why you chose this segment as your primary target..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-actions">
+                    <button class="btn btn-secondary" onclick="navigateTo('perceptual-map')">← Back</button>
+                    <button class="btn btn-primary" onclick="navigateTo('positioning')">Continue to Positioning →</button>
+                </div>
+            </section>
+
+            <!-- Section 4: Positioning Statement -->
+            <section id="positioning" class="content-section">
+                <div class="section-header">
+                    <h2>Positioning Statement Builder</h2>
+                    <p class="section-subtitle">Craft a compelling positioning statement for EnergyBoost</p>
+                </div>
+
+                <div class="positioning-container">
+                    <div class="pop-pod-section">
+                        <div class="pop-section">
+                            <h3>Points of Parity (POP)</h3>
+                            <p class="helper-text">What must EnergyBoost have to be considered a legitimate energy drink?</p>
+                            <div class="tag-input-container">
+                                <div class="tags-display" id="popTags"></div>
+                                <input type="text" id="popInput" placeholder="Type and press Enter to add..." onkeypress="handleTagInput(event, 'pop')">
+                            </div>
+                            <div class="tag-suggestions">
+                                <span class="suggestion-label">Suggestions:</span>
+                                <button class="tag-suggestion" onclick="addTag('pop', 'Caffeine content')">Caffeine content</button>
+                                <button class="tag-suggestion" onclick="addTag('pop', 'Portable packaging')">Portable packaging</button>
+                                <button class="tag-suggestion" onclick="addTag('pop', 'Quick energy boost')">Quick energy boost</button>
+                                <button class="tag-suggestion" onclick="addTag('pop', 'Refreshing taste')">Refreshing taste</button>
+                            </div>
+                        </div>
+
+                        <div class="pod-section">
+                            <h3>Points of Difference (POD)</h3>
+                            <p class="helper-text">What will make EnergyBoost meaningfully different and better?</p>
+                            <div class="tag-input-container">
+                                <div class="tags-display" id="podTags"></div>
+                                <input type="text" id="podInput" placeholder="Type and press Enter to add..." onkeypress="handleTagInput(event, 'pod')">
+                            </div>
+                            <div class="tag-suggestions">
+                                <span class="suggestion-label">Suggestions:</span>
+                                <button class="tag-suggestion" onclick="addTag('pod', 'Natural ingredients')">Natural ingredients</button>
+                                <button class="tag-suggestion" onclick="addTag('pod', 'Sustainable packaging')">Sustainable packaging</button>
+                                <button class="tag-suggestion" onclick="addTag('pod', 'No crash formula')">No crash formula</button>
+                                <button class="tag-suggestion" onclick="addTag('pod', 'Added vitamins')">Added vitamins</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="statement-builder">
+                        <h3>Build Your Positioning Statement</h3>
+                        <div class="statement-framework">
+                            <div class="framework-row">
+                                <label>For</label>
+                                <input type="text" id="psTarget" placeholder="[TARGET SEGMENT - e.g., health-conscious professionals]">
+                            </div>
+                            <div class="framework-row">
+                                <label>Who</label>
+                                <input type="text" id="psNeed" placeholder="[STATEMENT OF NEED - e.g., need sustained energy without compromising wellness]">
+                            </div>
+                            <div class="framework-row">
+                                <label>EnergyBoost is a</label>
+                                <input type="text" id="psCategory" placeholder="[PRODUCT CATEGORY - e.g., clean energy drink]">
+                            </div>
+                            <div class="framework-row">
+                                <label>That</label>
+                                <input type="text" id="psBenefit" placeholder="[KEY BENEFIT - e.g., delivers lasting energy using natural ingredients]">
+                            </div>
+                            <div class="framework-row">
+                                <label>Unlike</label>
+                                <input type="text" id="psCompetitor" placeholder="[COMPETITIVE ALTERNATIVE - e.g., traditional energy drinks loaded with artificial ingredients]">
+                            </div>
+                            <div class="framework-row">
+                                <label>Our product</label>
+                                <input type="text" id="psRtb" placeholder="[REASON TO BELIEVE - e.g., is made with organic green tea extract and B-vitamins]">
+                            </div>
+                        </div>
+
+                        <div class="statement-preview">
+                            <h4>Your Positioning Statement</h4>
+                            <div class="preview-box" id="statementPreview">
+                                <p class="preview-placeholder">Fill in the fields above to see your positioning statement...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dcu-evaluation">
+                        <h3>Evaluate Your Positioning (D-C-U Framework)</h3>
+                        <div class="dcu-grid">
+                            <div class="dcu-card">
+                                <h4>Desirable</h4>
+                                <p>Do customers actually want this benefit?</p>
+                                <div class="rating-input">
+                                    <input type="range" id="desirableRating" min="1" max="5" value="3" oninput="updateDcuDisplay()">
+                                    <span class="rating-value" id="desirableValue">3</span>
+                                </div>
+                                <textarea id="desirableJustification" rows="2" placeholder="Justify your rating..."></textarea>
+                            </div>
+                            <div class="dcu-card">
+                                <h4>Deliverable</h4>
+                                <p>Can we actually deliver on this promise?</p>
+                                <div class="rating-input">
+                                    <input type="range" id="deliverableRating" min="1" max="5" value="3" oninput="updateDcuDisplay()">
+                                    <span class="rating-value" id="deliverableValue">3</span>
+                                </div>
+                                <textarea id="deliverableJustification" rows="2" placeholder="Justify your rating..."></textarea>
+                            </div>
+                            <div class="dcu-card">
+                                <h4>Differentiating</h4>
+                                <p>Is this meaningfully different from competitors?</p>
+                                <div class="rating-input">
+                                    <input type="range" id="differentiatingRating" min="1" max="5" value="3" oninput="updateDcuDisplay()">
+                                    <span class="rating-value" id="differentiatingValue">3</span>
+                                </div>
+                                <textarea id="differentiatingJustification" rows="2" placeholder="Justify your rating..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-actions">
+                    <button class="btn btn-secondary" onclick="navigateTo('segments')">← Back</button>
+                    <button class="btn btn-primary" onclick="navigateTo('summary')">Continue to Summary →</button>
+                </div>
+            </section>
+
+            <!-- Section 5: Summary & Export -->
+            <section id="summary" class="content-section">
+                <div class="section-header">
+                    <h2>Strategy Summary & Export</h2>
+                    <p class="section-subtitle">Review your positioning strategy and export for submission</p>
+                </div>
+
+                <div class="summary-container">
+                    <div class="summary-section">
+                        <h3>Executive Summary</h3>
+                        <div class="summary-card" id="executiveSummary">
+                            <!-- Will be populated by JS -->
+                        </div>
+                    </div>
+
+                    <div class="summary-section">
+                        <h3>Perceptual Map</h3>
+                        <div class="summary-card">
+                            <div class="mini-map" id="miniMapPreview">
+                                <!-- Mini version of perceptual map -->
+                            </div>
+                            <div class="map-insights" id="mapInsights">
+                                <!-- Gap analysis answers -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="summary-section">
+                        <h3>Target Segment</h3>
+                        <div class="summary-card" id="targetSummary">
+                            <!-- Target segment details -->
+                        </div>
+                    </div>
+
+                    <div class="summary-section">
+                        <h3>Positioning Statement</h3>
+                        <div class="summary-card" id="positioningSummary">
+                            <!-- Final positioning statement -->
+                        </div>
+                    </div>
+
+                    <div class="summary-section">
+                        <h3>Marketing Mix Recommendations</h3>
+                        <div class="marketing-mix-form">
+                            <div class="mix-item">
+                                <label>Product</label>
+                                <textarea id="mixProduct" rows="2" placeholder="Formulation, packaging, sizes..."></textarea>
+                            </div>
+                            <div class="mix-item">
+                                <label>Price</label>
+                                <textarea id="mixPrice" rows="2" placeholder="Price point, strategy..."></textarea>
+                            </div>
+                            <div class="mix-item">
+                                <label>Place</label>
+                                <textarea id="mixPlace" rows="2" placeholder="Distribution channels..."></textarea>
+                            </div>
+                            <div class="mix-item">
+                                <label>Promotion</label>
+                                <textarea id="mixPromotion" rows="2" placeholder="Key messages, channels, tone..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="export-actions">
+                        <button class="btn btn-large btn-secondary" onclick="exportToPDF()">
+                            📄 Export as PDF
+                        </button>
+                        <button class="btn btn-large btn-primary" onclick="exportToJSON()">
+                            💾 Save Progress
+                        </button>
+                        <button class="btn btn-large btn-outline" onclick="printSummary()">
+                            🖨️ Print
+                        </button>
+                    </div>
+                </div>
+
+                <div class="section-actions">
+                    <button class="btn btn-secondary" onclick="navigateTo('positioning')">← Back</button>
+                    <button class="btn btn-success" onclick="submitExercise()">Submit Exercise ✓</button>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Product Positioning Workshop | Marketing Management Exercise</p>
+            <p class="footer-note">Progress is automatically saved in your browser</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
