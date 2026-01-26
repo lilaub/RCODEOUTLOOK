@@ -1,6 +1,7 @@
 # 💕 Dating Apps Perceptual Mapping Workshop
 
 ## An Interactive Marketing Research Exercise Using Factor Analysis
+By Prof. P.V. SUNDAR BALAKRISHNAN
 
 ---
 
