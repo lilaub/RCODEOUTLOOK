@@ -4,6 +4,166 @@
  */
 
 // ============================================
+// Demo Dataset for Classroom Demonstrations
+// ============================================
+
+const demoData = {
+    apps: [
+        'Tinder', 'Bumble', 'Hinge', 'OkCupid', 'Match.com',
+        'Coffee Meets Bagel', 'The League', 'eHarmony',
+        'Plenty of Fish', 'Grindr', 'Raya'
+    ],
+    attributes: [
+        'Serious relationship focus',
+        'Casual/hookup friendly',
+        'Large user base',
+        'Quality of matches',
+        'Algorithm effectiveness',
+        'Ease of use',
+        'Free features value',
+        'Premium worthiness',
+        'Exclusivity',
+        'Safety features'
+    ],
+    // Ratings matrix: each app rated on each attribute (1-7 scale)
+    // Designed to produce clear factor structure for teaching
+    ratings: {
+        'Tinder': {
+            'Serious relationship focus': 2,
+            'Casual/hookup friendly': 7,
+            'Large user base': 7,
+            'Quality of matches': 3,
+            'Algorithm effectiveness': 4,
+            'Ease of use': 7,
+            'Free features value': 5,
+            'Premium worthiness': 4,
+            'Exclusivity': 1,
+            'Safety features': 4
+        },
+        'Bumble': {
+            'Serious relationship focus': 5,
+            'Casual/hookup friendly': 4,
+            'Large user base': 6,
+            'Quality of matches': 5,
+            'Algorithm effectiveness': 5,
+            'Ease of use': 6,
+            'Free features value': 5,
+            'Premium worthiness': 5,
+            'Exclusivity': 2,
+            'Safety features': 6
+        },
+        'Hinge': {
+            'Serious relationship focus': 6,
+            'Casual/hookup friendly': 2,
+            'Large user base': 5,
+            'Quality of matches': 6,
+            'Algorithm effectiveness': 6,
+            'Ease of use': 5,
+            'Free features value': 4,
+            'Premium worthiness': 6,
+            'Exclusivity': 3,
+            'Safety features': 5
+        },
+        'OkCupid': {
+            'Serious relationship focus': 5,
+            'Casual/hookup friendly': 4,
+            'Large user base': 5,
+            'Quality of matches': 5,
+            'Algorithm effectiveness': 6,
+            'Ease of use': 4,
+            'Free features value': 6,
+            'Premium worthiness': 4,
+            'Exclusivity': 1,
+            'Safety features': 4
+        },
+        'Match.com': {
+            'Serious relationship focus': 7,
+            'Casual/hookup friendly': 1,
+            'Large user base': 5,
+            'Quality of matches': 5,
+            'Algorithm effectiveness': 5,
+            'Ease of use': 4,
+            'Free features value': 2,
+            'Premium worthiness': 5,
+            'Exclusivity': 3,
+            'Safety features': 6
+        },
+        'Coffee Meets Bagel': {
+            'Serious relationship focus': 6,
+            'Casual/hookup friendly': 2,
+            'Large user base': 3,
+            'Quality of matches': 6,
+            'Algorithm effectiveness': 5,
+            'Ease of use': 5,
+            'Free features value': 4,
+            'Premium worthiness': 5,
+            'Exclusivity': 4,
+            'Safety features': 6
+        },
+        'The League': {
+            'Serious relationship focus': 5,
+            'Casual/hookup friendly': 3,
+            'Large user base': 2,
+            'Quality of matches': 6,
+            'Algorithm effectiveness': 4,
+            'Ease of use': 4,
+            'Free features value': 2,
+            'Premium worthiness': 6,
+            'Exclusivity': 7,
+            'Safety features': 5
+        },
+        'eHarmony': {
+            'Serious relationship focus': 7,
+            'Casual/hookup friendly': 1,
+            'Large user base': 4,
+            'Quality of matches': 6,
+            'Algorithm effectiveness': 7,
+            'Ease of use': 3,
+            'Free features value': 1,
+            'Premium worthiness': 5,
+            'Exclusivity': 4,
+            'Safety features': 7
+        },
+        'Plenty of Fish': {
+            'Serious relationship focus': 3,
+            'Casual/hookup friendly': 5,
+            'Large user base': 6,
+            'Quality of matches': 3,
+            'Algorithm effectiveness': 3,
+            'Ease of use': 5,
+            'Free features value': 7,
+            'Premium worthiness': 2,
+            'Exclusivity': 1,
+            'Safety features': 3
+        },
+        'Grindr': {
+            'Serious relationship focus': 2,
+            'Casual/hookup friendly': 7,
+            'Large user base': 5,
+            'Quality of matches': 3,
+            'Algorithm effectiveness': 3,
+            'Ease of use': 6,
+            'Free features value': 5,
+            'Premium worthiness': 3,
+            'Exclusivity': 2,
+            'Safety features': 3
+        },
+        'Raya': {
+            'Serious relationship focus': 4,
+            'Casual/hookup friendly': 4,
+            'Large user base': 1,
+            'Quality of matches': 7,
+            'Algorithm effectiveness': 3,
+            'Ease of use': 5,
+            'Free features value': 1,
+            'Premium worthiness': 7,
+            'Exclusivity': 7,
+            'Safety features': 6
+        }
+    }
+};
+
+// ============================================
 // Suggested Data
 // ============================================
 
@@ -958,6 +1118,293 @@ function loadState() {
     }
 }
 
+// ============================================
+// Demo Mode & Data Import
+// ============================================
+
+/**
+ * Load the demo dataset for classroom demonstrations
+ * This allows instructors to quickly show the full analysis
+ */
+function loadDemoData() {
+    if (state.apps.length > 0) {
+        if (!confirm('This will replace your current data. Continue?')) {
+            return;
+        }
+    }
+
+    // Clear current state
+    state.apps = [...demoData.apps];
+    state.attributes = [...demoData.attributes];
+    state.ratings = JSON.parse(JSON.stringify(demoData.ratings));
+    state.factorAnalysis = null;
+
+    // Update UI
+    renderAppsList();
+    renderAttributesList();
+    renderSuggestedApps();
+    renderSuggestedAttributes();
+    updateCounts();
+
+    // Show success message
+    showNotification('Demo data loaded! Click "Continue to Rating Matrix" to proceed.');
+
+    saveState();
+}
+
+/**
+ * Load demo data and automatically run analysis (for quick demos)
+ */
+function loadDemoAndAnalyze() {
+    loadDemoData();
+
+    // Small delay to let UI update, then proceed
+    setTimeout(() => {
+        goToStep(2); // Go to rating matrix
+        setTimeout(() => {
+            goToStep(3); // Go to factor analysis
+            setTimeout(() => {
+                runFactorAnalysis();
+                setTimeout(() => {
+                    goToStep(4); // Show the map
+                }, 500);
+            }, 300);
+        }, 300);
+    }, 300);
+}
+
+/**
+ * Trigger file input for Excel import
+ */
+function importExcel() {
+    const input = document.getElementById('excelFileInput');
+    if (input) {
+        input.click();
+    }
+}
+
+/**
+ * Handle Excel file selection and parsing
+ */
+function handleExcelFile(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    // Check file extension
+    const validExtensions = ['.xlsx', '.xls', '.csv'];
+    const fileName = file.name.toLowerCase();
+    const isValid = validExtensions.some(ext => fileName.endsWith(ext));
+
+    if (!isValid) {
+        alert('Please select an Excel file (.xlsx, .xls) or CSV file (.csv)');
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+        try {
+            const data = new Uint8Array(e.target.result);
+            const workbook = XLSX.read(data, { type: 'array' });
+
+            // Get first sheet
+            const sheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[sheetName];
+
+            // Convert to JSON
+            const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+            if (jsonData.length < 2) {
+                alert('Excel file appears to be empty or invalid.');
+                return;
+            }
+
+            // Parse the data
+            parseExcelData(jsonData);
+
+        } catch (error) {
+            console.error('Error reading Excel file:', error);
+            alert('Error reading file. Make sure it\'s a valid Excel file.\n\nIf you don\'t have the Excel library loaded, please check that the page has internet access.');
+        }
+    };
+
+    reader.onerror = function() {
+        alert('Error reading file. Please try again.');
+    };
+
+    reader.readAsArrayBuffer(file);
+
+    // Reset file input so same file can be selected again
+    event.target.value = '';
+}
+
+/**
+ * Parse Excel data and load into app state
+ * Expected format:
+ * - Row 1: Header with attribute names (first cell can be empty or "App")
+ * - Row 2+: App name in first column, ratings in subsequent columns
+ */
+function parseExcelData(jsonData) {
+    // First row is headers (attributes)
+    const headers = jsonData[0];
+    const attributes = headers.slice(1).filter(h => h && String(h).trim());
+
+    if (attributes.length < 4) {
+        alert('Excel file must have at least 4 attributes (columns).');
+        return;
+    }
+
+    // Parse apps and ratings
+    const apps = [];
+    const ratings = {};
+
+    for (let i = 1; i < jsonData.length; i++) {
+        const row = jsonData[i];
+        const appName = row[0];
+
+        if (!appName || !String(appName).trim()) continue;
+
+        const appNameStr = String(appName).trim();
+        apps.push(appNameStr);
+        ratings[appNameStr] = {};
+
+        for (let j = 1; j < row.length && j <= attributes.length; j++) {
+            const attrName = attributes[j - 1];
+            let value = row[j];
+
+            // Convert to number if possible
+            if (value !== undefined && value !== null && value !== '') {
+                value = Number(value);
+                if (!isNaN(value) && value >= 1 && value <= 7) {
+                    ratings[appNameStr][attrName] = Math.round(value);
+                }
+            }
+        }
+    }
+
+    if (apps.length < 3) {
+        alert('Excel file must have at least 3 apps (rows).');
+        return;
+    }
+
+    // Confirm before replacing
+    if (state.apps.length > 0) {
+        if (!confirm(`Found ${apps.length} apps and ${attributes.length} attributes. This will replace your current data. Continue?`)) {
+            return;
+        }
+    }
+
+    // Update state
+    state.apps = apps;
+    state.attributes = attributes;
+    state.ratings = ratings;
+    state.factorAnalysis = null;
+
+    // Update UI
+    renderAppsList();
+    renderAttributesList();
+    renderSuggestedApps();
+    renderSuggestedAttributes();
+    updateCounts();
+
+    showNotification(`Imported ${apps.length} apps and ${attributes.length} attributes from Excel!`);
+    saveState();
+}
+
+/**
+ * Show a notification message to the user
+ */
+function showNotification(message) {
+    // Check if notification container exists, create if not
+    let container = document.getElementById('notificationContainer');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'notificationContainer';
+        container.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+        `;
+        document.body.appendChild(container);
+    }
+
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.style.cssText = `
+        background: #10b981;
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        animation: slideIn 0.3s ease;
+        max-width: 350px;
+    `;
+    notification.textContent = message;
+
+    container.appendChild(notification);
+
+    // Remove after 4 seconds
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => notification.remove(), 300);
+    }, 4000);
+}
+
+/**
+ * Download a sample Excel template for students
+ */
+function downloadExcelTemplate() {
+    // Create a sample template
+    const templateData = [
+        ['App Name', 'Serious relationship focus', 'Casual/hookup friendly', 'Large user base', 'Quality of matches', 'Ease of use', 'Free features value', 'Exclusivity', 'Safety features'],
+        ['Tinder', '', '', '', '', '', '', '', ''],
+        ['Bumble', '', '', '', '', '', '', '', ''],
+        ['Hinge', '', '', '', '', '', '', '', ''],
+        ['(Add more apps...)', '', '', '', '', '', '', '', '']
+    ];
+
+    // Create workbook
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.aoa_to_array ?
+        XLSX.utils.aoa_to_sheet(templateData) :
+        XLSX.utils.aoa_to_sheet(templateData);
+
+    XLSX.utils.book_append_sheet(wb, ws, 'Ratings');
+
+    // Download
+    XLSX.writeFile(wb, 'dating-apps-survey-template.xlsx');
+}
+
+/**
+ * Clear all data and start fresh
+ */
+function clearAllData() {
+    if (!confirm('This will clear all apps, attributes, and ratings. Are you sure?')) {
+        return;
+    }
+
+    state.apps = [];
+    state.attributes = [];
+    state.ratings = {};
+    state.factorAnalysis = null;
+    state.currentStep = 1;
+
+    // Clear localStorage
+    localStorage.removeItem('datingAppsPositioningState');
+
+    // Update UI
+    renderAppsList();
+    renderAttributesList();
+    renderSuggestedApps();
+    renderSuggestedAttributes();
+    updateCounts();
+    goToStep(1);
+
+    showNotification('All data cleared!');
+}
+
 // Make functions globally available
 window.goToStep = goToStep;
 window.addApp = addApp;
@@ -974,3 +1421,9 @@ window.showAppDetails = showAppDetails;
 window.exportData = exportData;
 window.exportReport = exportReport;
 window.submitExercise = submitExercise;
+window.loadDemoData = loadDemoData;
+window.loadDemoAndAnalyze = loadDemoAndAnalyze;
+window.importExcel = importExcel;
+window.handleExcelFile = handleExcelFile;
+window.downloadExcelTemplate = downloadExcelTemplate;
+window.clearAllData = clearAllData;

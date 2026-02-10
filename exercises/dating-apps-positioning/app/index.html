@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dating Apps Perceptual Mapping - Factor Analysis Workshop</title>
     <link rel="stylesheet" href="./styles.css">
+    <!-- SheetJS for Excel import -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
     <div class="app-container">
@@ -56,6 +58,46 @@
                 <div class="section-header">
                     <h2>Step 1: List Apps & Attributes</h2>
                     <p class="section-subtitle">Enter the dating apps you know and the attributes you use to evaluate them</p>
+                </div>
+
+                <!-- Data Import Options -->
+                <div class="data-import-panel">
+                    <div class="import-options">
+                        <div class="import-option">
+                            <h4>🎓 For Instructors: Demo Mode</h4>
+                            <p>Load sample data to quickly demonstrate the exercise</p>
+                            <div class="import-buttons">
+                                <button class="btn btn-secondary" onclick="loadDemoData()">
+                                    📊 Load Demo Data
+                                </button>
+                                <button class="btn btn-primary" onclick="loadDemoAndAnalyze()">
+                                    ⚡ Demo → Full Analysis
+                                </button>
+                            </div>
+                        </div>
+                        <div class="import-divider"></div>
+                        <div class="import-option">
+                            <h4>📁 Import Survey Data</h4>
+                            <p>Upload Excel/CSV file with collected survey responses</p>
+                            <div class="import-buttons">
+                                <button class="btn btn-secondary" onclick="importExcel()">
+                                    📥 Import Excel/CSV
+                                </button>
+                                <button class="btn btn-outline btn-sm" onclick="downloadExcelTemplate()">
+                                    📋 Download Template
+                                </button>
+                            </div>
+                            <input type="file" id="excelFileInput" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleExcelFile(event)">
+                        </div>
+                        <div class="import-divider"></div>
+                        <div class="import-option">
+                            <h4>✏️ Manual Entry</h4>
+                            <p>Enter apps and attributes one by one below</p>
+                            <button class="btn btn-outline btn-sm" onclick="clearAllData()">
+                                🗑️ Clear All Data
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="two-column-layout">
