@@ -1066,6 +1066,78 @@ body {
     }
 }
 
+/* Data Import Panel */
+.data-import-panel {
+    background: var(--surface);
+    border: 2px dashed var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.import-options {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.import-option {
+    flex: 1;
+    min-width: 200px;
+    max-width: 280px;
+    text-align: center;
+    padding: 1rem;
+}
+
+.import-option h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.import-option p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.import-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.import-divider {
+    width: 1px;
+    background: var(--border);
+    margin: 0 0.5rem;
+}
+
+/* Notification animations */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
 /* Print Styles */
 @media print {
     .app-header,
@@ -1073,7 +1145,8 @@ body {
     .section-actions,
     .export-section,
     .app-footer,
-    .map-controls {
+    .map-controls,
+    .data-import-panel {
         display: none !important;
     }
 
@@ -1084,5 +1157,23 @@ body {
 
     .perceptual-map-wrapper {
         padding: 1rem;
+    }
+}
+
+/* Responsive for import panel */
+@media (max-width: 768px) {
+    .import-options {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .import-divider {
+        width: 80%;
+        height: 1px;
+        margin: 0.5rem 0;
+    }
+
+    .import-option {
+        max-width: 100%;
     }
 }

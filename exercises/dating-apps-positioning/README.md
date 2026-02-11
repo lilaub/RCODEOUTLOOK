@@ -80,6 +80,77 @@ Step 5: Strategic Insights      →  Analyze clusters, gaps, opportunities
 
 ---
 
+## 🎓 NEW: Demo Mode for Instructors
+
+**Quickly demonstrate the exercise in class without manual data entry!**
+
+### One-Click Demo
+
+Click **"Demo → Full Analysis"** to:
+1. Load 11 pre-rated dating apps
+2. Automatically run factor analysis
+3. Jump directly to the perceptual map
+
+This takes about 2 seconds and shows students the complete output.
+
+### Load Demo Data Only
+
+Click **"Load Demo Data"** to:
+- Load the sample dataset
+- Let you walk through each step manually
+- Explain the process as you go
+
+### Demo Dataset Includes
+
+| Apps | Attributes |
+|------|------------|
+| Tinder, Bumble, Hinge | Serious relationship focus |
+| OkCupid, Match.com | Casual/hookup friendly |
+| Coffee Meets Bagel | Large user base |
+| The League, Raya | Quality of matches |
+| eHarmony | Algorithm effectiveness |
+| Plenty of Fish, Grindr | Ease of use, Exclusivity, etc. |
+
+---
+
+## 📥 NEW: Excel/CSV Import
+
+**Students can collect survey data and import it directly!**
+
+### How It Works
+
+1. **Collect Survey Data**
+   - Students survey classmates/friends
+   - Record ratings in Excel (apps in rows, attributes in columns)
+
+2. **Import the File**
+   - Click **"Import Excel/CSV"**
+   - Select the file
+   - Data loads automatically
+
+3. **Run Analysis**
+   - Proceed through the exercise with real collected data
+
+### Excel File Format
+
+```
+| App Name    | Serious | Casual | User Base | Quality | ... |
+|-------------|---------|--------|-----------|---------|-----|
+| Tinder      | 2       | 7      | 7         | 3       | ... |
+| Bumble      | 5       | 4      | 6         | 5       | ... |
+| Hinge       | 6       | 2      | 5         | 6       | ... |
+```
+
+- **Row 1**: Attribute names (first cell can be "App Name" or empty)
+- **Row 2+**: App name in column A, ratings (1-7) in other columns
+- Supports **.xlsx**, **.xls**, and **.csv** files
+
+### Download Template
+
+Click **"Download Template"** to get a pre-formatted Excel file students can fill in.
+
+---
+
 ## 📱 Step-by-Step Instructions
 
 ### Step 1: List Apps & Attributes
